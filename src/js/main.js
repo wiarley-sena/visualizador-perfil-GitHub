@@ -1,5 +1,5 @@
 import { fetchUser, fetchRepos } from './api.js';
-import { renderProfile, renderRepos } from './ui.js';
+import { renderProfile } from './ui.js';
 
 const inputSearch = document.getElementById("input-search");
 const btnSearch = document.getElementById("btn-search");
@@ -15,9 +15,9 @@ btnSearch.addEventListener("click", async () => {
   profileResults.innerHTML = `<p class="loading">Carregando...</p>`;
   try {
     const userData = await fetchUser(username);
-    renderProfile(userData, profileResults);
-    const reposData = await fetchRepos(username);
-    renderRepos(reposData, profileResults);
+    const userRepos = await fetchRepos(username);
+    renderProfile(userData, userRepos, profileResults);
+
   } catch (error) {
     alert(error.message);
     profileResults.innerHTML = "";
